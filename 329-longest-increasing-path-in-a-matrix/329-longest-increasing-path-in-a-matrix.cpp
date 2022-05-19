@@ -5,7 +5,7 @@ public:
         int m=matrix.size();
         int n=matrix[0].size();
         int longestpath=0;
-        vector<vector<int>>dp(m,vector<int>(n,0));
+        vector<vector<int>>dp(m,vector<int>(n,1));
 
         for(int i=0;i<m;i++)
         {
@@ -20,7 +20,7 @@ public:
     int dfs(int m,int n,int i,int j,vector<vector<int>>&matrix,vector<vector<int>>&dp)
     {
         int maxpath=0;
-        if(dp[i][j]>0)
+        if(dp[i][j]>1)
         {
             return dp[i][j];
         }
