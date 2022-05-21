@@ -17,6 +17,6 @@ public:
                     dp[i][j]=min(1+dp[i][j-coins[i-1]],dp[i-1][j]);
             }
         }
-        return dp[n][amount]>1e4?-1:dp[n][amount];
+        return dp[n][amount]==1e5?-1:dp[n][amount];
     }
 };
