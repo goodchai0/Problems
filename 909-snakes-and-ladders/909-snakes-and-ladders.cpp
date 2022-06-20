@@ -48,3 +48,7 @@ public:
         return {x,y};
     }
 };
+
+//compare this two solution for the explaination
+//https://github.com/luckykumardev/leetcode-solution/blob/master/snakes%20and%20ladders.java
+//https://leetcode.com/problems/snakes-and-ladders/discuss/627444/C%2B%2B-solution-with-detailed-explanation
