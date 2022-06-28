@@ -9,14 +9,14 @@ public:
         
         set<int>st;
         
-        for(auto [i,j]:mp)
+        for(auto i:mp)
         {
-            while(st.find(j)!=st.end())
+            while(st.find(i.second)!=st.end())
             {
-                j--;ans++;
+                i.second--;ans++;
             }
-            if(j>0)
-                st.insert(j);
+            if(i.second>0)
+                st.insert(i.second);
         }
         return ans;
     }
