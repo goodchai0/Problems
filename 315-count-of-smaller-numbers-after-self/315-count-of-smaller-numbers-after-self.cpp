@@ -13,8 +13,8 @@ public:
                 temp[k++]=v[j++];
             else{
                 count[v[i].second]+=right-j+1;
-                temp[k++]=v[i++];            
-            } 
+                temp[k++]=v[i++];
+            }
         }
         while(i<=mid)
         {
@@ -27,7 +27,6 @@ public:
         for(int i=left;i<=right;i++)
             v[i]=temp[i-left];
     }
-    
     void mergeSort(vector<int>&count,vector<pair<int,int>>&v,int left,int right)
     {
         if(right>left)
@@ -38,7 +37,6 @@ public:
             merge(count,v,left,mid,right);
         }
     }
-    
     vector<int> countSmaller(vector<int>& nums) {
         int n=nums.size();
         vector<pair<int,int>>v(n);
@@ -49,7 +47,6 @@ public:
             p.second=i;
             v[i]=p;
         }
-        
         vector<int>count(n,0);
         mergeSort(count,v,0,n-1);
         return count;
