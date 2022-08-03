@@ -7,8 +7,11 @@ public:
     
     bool book(int start, int end) {
         auto it=s.upper_bound({start,end});
-        if(it!=s.end()&&it->second<end)
-            return false;
+        if(it->first>start&&it->second<end)
+        {
+             return false;
+        }
+           
         s.insert({end,start});
             return true;
     }
