@@ -10,62 +10,42 @@
  */
 class Solution {
 public:
-    vector<vector<int>> spiralMatrix(int m, int n, ListNode* h) {
-        vector<vector<int>>v(m,vector<int>(n,-1));
-        int left=0,right=n-1,top=0,bottom=m-1;
-        ListNode* head=h;
-        while(head!=NULL && left<=right && top<=bottom){
-            for(int i=left;i<=right;i++)
-            {   
-                if(head!=NULL)
-                {
-                    v[top][i]=head->val;
-                    head=head->next;
-                }  
-                else{
-                    break;
-                }
+    vector<vector<int>> spiralMatrix(int m, int n, ListNode* head) {
+        vector<vector<int>>ans(m,vector<int>(n,-1));
+        
+        int t=0,b=m-1,l=0,r=n-1;
+        int j=0;
+        while(head!=NULL){
+            
+            for(int i=l;i<=r;i++){
+                if(head==NULL)return ans;
+                ans[t][i]=head->val;
+                head=head->next;
             }
-            top++;
-            for(int i=top;i<=bottom;i++)
-            {
-                if(head!=NULL)
-                {
-                    v[i][right]=head->val;
-                    head=head->next;
-                }
-                else{
-                    break;
-                }
-                
+            t++;
+            
+            for(int i=t;i<=b;i++){
+                if(head==NULL)return ans;
+                ans[i][r]=head->val;
+                head=head->next;
             }
-            right--;
-            for(int i=right;i>=left;i--)
-            {
-                if(head!=NULL)
-                {
-                    v[bottom][i]=head->val;
-                    head=head->next;
-                }
-                else{
-                    break;
-                }
-                
+            r--;
+            
+            for(int i=r;i>=l;i--){
+                if(head==NULL)return ans;
+                ans[b][i]=head->val;
+                head=head->next;
             }
-            bottom--;
-            for(int i=bottom;i>=top;i--)
-            {
-                if(head!=NULL)
-                {    
-                    v[i][left]=head->val;
-                    head=head->next;
-                }
-                else{
-                    break;
-                }
+            b--;
+            for(int i=b;i>=t;i--){
+                if(head==NULL)return ans;
+                ans[i][l]=head->val;
+                head=head->next;
             }
-            left++;
+            l++;
+            
         }
-        return v;
+        return ans;
+        
     }
 };
