@@ -1,18 +1,22 @@
 class Solution {
 public:
-    #define ll long long
-    #define mod 1000000007
+    long long mod = 1e9 + 7;
+    
+    int dp[10004];
+    int helper(int i,int n){
+        if(i>n)
+            return 1;
+        // ans++;
+        if(dp[i]!=-1)
+            return dp[i];
+        int include=helper(i+1,n);
+        int exclude=helper(i+2,n);
+        return dp[i]=(include%mod+exclude%mod)%mod;
+    }
     int countHousePlacements(int n) {
-        vector<ll>dp(n+1,0);
-        dp[0]=1;
-        dp[1]=2;
-        for(int i=2;i<=n;i++){
-            dp[i]=0+dp[i-1];
-            if(i>=2)
-                dp[i]+=dp[i-2];
-            dp[i]%=mod;
-        }
-        return (dp[n]%mod*dp[n]%mod)%mod;
+        memset(dp,-1,sizeof(dp));
+        int ans = helper(1, n);
         
+        return (ans % mod * ans % mod) % mod;
     }
 };
