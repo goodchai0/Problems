@@ -8,7 +8,7 @@ public:
         return helper(1,n,delay,forget);
     }
     
-    long helper(int day,int &n,int &delay,int forget){
+    long helper(int day,int n,int delay,int forget){
         if(dp[day]!=-1)
             return dp[day];
         
