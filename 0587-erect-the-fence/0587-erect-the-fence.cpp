@@ -8,7 +8,7 @@ public:
         // left to right
         const int n = size(points);
         vector<vector<int>> ans;
-        ans.reserve(n);
+        // ans.reserve(n);
         for (int i = 0; i < n; ++i) {
             while (size(ans) > 1 && orientation(ans[size(ans) - 2], ans.back(), points[i]) < 0) 
                 ans.pop_back();
