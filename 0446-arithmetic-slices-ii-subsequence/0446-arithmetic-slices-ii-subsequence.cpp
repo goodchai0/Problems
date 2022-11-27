@@ -14,10 +14,14 @@ public:
                 if(dp[start].find(difference)!=dp[start].end()){
                     sum=dp[start][difference];
                 }
-                dp[end][difference]+=(sum+1);
                 res+=sum;
+                dp[end][difference]+=(sum+1);
+                
             }
         }
         return res;
     }
+    
+    
+    
 };
