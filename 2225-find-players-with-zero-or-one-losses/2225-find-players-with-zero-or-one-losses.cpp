@@ -8,6 +8,7 @@ public:
             mpp[matches[i][0]] += 0;
             mpp[matches[i][1]] += 1;
         }
+        
         for(auto it: mpp) {
             if(it.second == 0) {
                 zero_lost.push_back(it.first);
