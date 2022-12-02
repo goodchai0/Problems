@@ -8,8 +8,9 @@ public:
         while(!map.empty()){
             string to=map.top();
             map.pop();
+            // cout<<to<<"-->";
             dfs(to);
-            
+            // cout<<to<<"<--";
         }
         ans.push_back(s);
     }
