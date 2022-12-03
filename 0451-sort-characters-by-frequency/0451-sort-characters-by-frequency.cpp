@@ -11,7 +11,9 @@ public:
         for(auto x:m1)
             maxHeap.push({x.second,x.first});
         while(!maxHeap.empty()){
-            st+=string(maxHeap.top().first,maxHeap.top().second);
+            int n=maxHeap.top().first;
+            while(n--)
+                st+=maxHeap.top().second;
             maxHeap.pop();
         }
         
