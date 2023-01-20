@@ -12,8 +12,11 @@ public:
             curr.push_back(nums[idx]);
             helper(idx+1,nums,ans,curr);
             curr.pop_back();
+            helper(idx+1,nums,ans,curr);
         }
-        helper(idx+1,nums,ans,curr);
+        else{
+            helper(idx+1,nums,ans,curr);
+        }
     }
     
     vector<vector<int>> findSubsequences(vector<int>& nums) {
