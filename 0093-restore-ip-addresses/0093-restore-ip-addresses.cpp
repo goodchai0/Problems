@@ -5,11 +5,11 @@ public:
             res.push_back(currIp.substr(0, currIp.length() - 1));
             return;
         }
-        if (dots > 4) 
-            return;
+        // if (dots > 4) 
+        //     return;
 
         for (int j = i; j < min(i+3, (int)s.length()); j++) {
-            if (stoi(s.substr(i, j-i+1)) < 256 && (i == j || s[i] != '0')) {
+            if (stoi(s.substr(i, j-i+1)) < 256 && (i == j || s[i] != '0') && dots<4) {
                 backtrack(s, j+1, dots+1, currIp + s.substr(i, j-i+1) + ".", res);
             }
         }
