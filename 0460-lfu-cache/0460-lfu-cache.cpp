@@ -1,72 +1,80 @@
 class LFUCache {
-    public:
-    int capacity;
-    unordered_map<int, pair<int,int>> cache;
-    unordered_map<int, list<int>::iterator> listItrMap;
-    unordered_map<int,list<int>> freqMap;
-    int minFreq=0;
+private:
+    int cap;
+    int size;
+    unordered_map<int,list<vector<int>>::iterator>mp;
+    map<int,list<vector<int>>>freq;
     
+public:
     LFUCache(int capacity) {
-        this->capacity = capacity;
+        cap=capacity;
+        size=0;
+    }
+    
+    void makeMostFrequentlyUsed(int key){
+        auto &vec = *(mp[key]);
+        int value = vec[1];
+        int f = vec[2];
+        
+        freq[f].erase(mp[key]);
+        
+        if(freq[f].empty())
+            freq.erase(f);
+        
+        f++;
+        freq[f].push_front(vector<int>({key,value,f}));
+        
+        mp[key]=freq[f].begin();
     }
     
     int get(int key) {
-        if(!cache.count(key))
+        if(mp.find(key)==mp.end())
             return -1;
         
-        updateFrequency(key);         
-        return cache[key].first;
+        auto &v=(*mp[key]);
+        int value=v[1];
+        
+        makeMostFrequentlyUsed(key);
+        
+        return value;
     }
     
-    void put(int key, int value) 
-    {
-        if(this->capacity<=0) return;
-        // if key is already in cache
-        if(cache.count(key))
-        {
-            updateFrequency(key);            
-            cache[key].first = value; //update value in cache
+    void put(int key, int value) {
+        if(cap==0)
+            return;
+        
+        if(mp.find(key)!=mp.end()){
+            auto &vec=(*mp[key]);
+            vec[1]=value;
+            makeMostFrequentlyUsed(key);
         }
-        else
-        {
-            if(cache.size() >= this->capacity)
-            {
-                // remove last-element in the least-frequent-list, from cache
-                int leastFrequentKey = freqMap[minFreq].back();
-                cache.erase(leastFrequentKey);
-                listItrMap.erase(leastFrequentKey);
-                
-                // remove least frequent from freqMap
-                freqMap[minFreq].pop_back();
-            } 
-            
-            // insert value and initialize frequency
-            cache[key] = {value, 0};
-            freqMap[0].push_front(key);
-            listItrMap[key] = freqMap[0].begin();
-            
-            minFreq=0;// reset min frequency
+        else if(size<cap){
+            size++;
+            freq[1].push_front(vector<int>({key,value,1}));
+            mp[key]=freq[1].begin();
         }
-    }
-    
-    private:
-    void updateFrequency(int key)
-    {
-        int freq = cache[key].second++;
-        
-        // remove from prev frequency list
-        freqMap[freq].erase(listItrMap[key]);
-        
-        // append to updated frequency list
-        freqMap[freq+1].push_front(key);
-        
-        //update list pointer to new list begin
-        listItrMap[key] = freqMap[freq+1].begin();
-
-        // remove empty lists incase minFrequency raises
-         if(freqMap[minFreq].size()==0 ) 
-           {
-              freqMap.erase(minFreq++);
-           }
+        else{
+            ///removing
+            
+            auto &remove_list=freq.begin()->second;
+            int key_delete=remove_list.back()[0];
+            
+            remove_list.pop_back();
+            
+            if(remove_list.empty())
+                freq.erase(freq.begin()->first);
+            
+            freq[1].push_front(vector<int>({key,value,1}));
+            
+            mp.erase(key_delete);
+            mp[key]=freq[1].begin();
+        }
     }
 };
+
+/**
+ * Your LFUCache object will be instantiated and called as such:
+ * LFUCache* obj = new LFUCache(capacity);
+ * int param_1 = obj->get(key);
+ * obj->put(key,value);
+ */
