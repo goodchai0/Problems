@@ -1,14 +1,15 @@
 class Solution {
 public:
-long long zeroFilledSubarray(vector<int>& nums) {
-    long long res = 0;
-    for (int i = 0, j = 0; i < nums.size(); ++i) {
-        if (nums[i] != 0)
-            j = i + 1;
-         res += i - j + 1;
+    long long zeroFilledSubarray(vector<int>& nums) {
+        long long j=0,ans=0;
+        for(long long i=0;i<nums.size();i++){
+            if(nums[i]!=0){
+                j=i+1;
+            }
+            ans+=i-j+1;
+        }
+        return ans;
     }
-    return res;
-}
 };
 
 // class Solution {
