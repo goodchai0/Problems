@@ -9,7 +9,7 @@ public:
                     j++;
                     i++;
                 }
-                ans+=(j*(j+1))/2+0LL;
+                ans+=(j*(j+1))/2;
             }
         }
         return ans;
