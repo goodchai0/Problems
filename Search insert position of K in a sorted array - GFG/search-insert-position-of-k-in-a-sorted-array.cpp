@@ -25,7 +25,7 @@ class Solution{
         }
         // cout<<i;
         // return i;
-        return (v[i]>x)?i:i;
+        return i;
         
     }
 };
