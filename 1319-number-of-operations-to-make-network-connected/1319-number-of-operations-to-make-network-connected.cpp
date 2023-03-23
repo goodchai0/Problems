@@ -21,8 +21,19 @@ public:
         vector<bool>vis(n,false);
         for(int i=0;i<n;i++){
             if(!vis[i]){
+                queue<int>q;
+                q.push(i);
                 component++;
-                dfs(graph,vis,i);
+                while(!q.empty()){
+                    int fnt=q.front();
+                    q.pop();
+                    for(auto x:graph[fnt]){
+                        if(!vis[x]){
+                            vis[x]=true;
+                            q.push(x);
+                        }
+                    }
+                }
             }
         }
         return component-1;
