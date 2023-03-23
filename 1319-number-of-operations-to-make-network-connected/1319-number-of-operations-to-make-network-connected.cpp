@@ -1,29 +1,32 @@
 class Solution {
 public:
+    void dfs(vector<vector<int>>& graph,vector<bool>&vis,int i){
+        vis[i]=true;
+        for(auto x:graph[i]){
+            if(!vis[x]){
+                dfs(graph,vis,x);
+            }
+        }
+    }
     int makeConnected(int n, vector<vector<int>>& connections) {
-        if(connections.size()+1<n){
-            return -1;
-        }
-        vector<int>parent(n,-1);
-        int count=1;
         
-        for(int i=0;i<connections.size();i++){
-            uni(parent,connections[i][0],connections[i][1],count);
+        if(connections.size()+1<n)return -1;
+        vector<vector<int>>graph(n);
+        for(auto x:connections){
+            graph[x[0]].push_back(x[1]);
+            graph[x[1]].push_back(x[0]);
         }
-        return n-count;
-    }
-    int findAbsParent(vector<int>&parent,int i){
-        while(parent[i]!=-1)
-            i=parent[i];
-        return i;
-    }
-    void uni(vector<int>&parent,int x,int y,int& count){
-        int parent1=findAbsParent(parent,x);
-        int parent2=findAbsParent(parent,y);
-        if(parent1!=parent2){
-            parent[parent1]=parent2;
-            count++;
+        
+        vector<bool>vis(n,false);
+        int component=0;
+        
+        for(int i=0;i<n;i++){
+            if(!vis[i]){
+                component++;
+                dfs(graph,vis,i);
+            }
         }
-
+        return component-1;
     }
+    
 };
