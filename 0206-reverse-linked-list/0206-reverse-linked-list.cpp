@@ -14,14 +14,14 @@ public:
     ListNode* helper(ListNode* head,ListNode* prev){
         if(head==NULL)
         {
-            ans1=prev;
+            // ans1=prev;
             return prev;
         }
         ListNode* temp=head;
         head=head->next;
         temp->next=prev;
-        helper(head,temp);
-        return head;
+        ans1=helper(head,temp);
+        return ans1;
     }
     ListNode* reverseList(ListNode* head) {
         ListNode* ans=helper(head,NULL);
