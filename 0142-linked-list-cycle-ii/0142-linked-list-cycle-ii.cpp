@@ -15,21 +15,26 @@ public:
         ListNode* slow=head;
         ListNode* fast=head;
         ListNode* entry=head;
-        
-        while(fast->next && fast->next->next){
+        bool flag=0;
+        while(fast!=NULL && fast->next!=NULL){
             slow=slow->next;
             fast=fast->next->next;
-            
-            if(fast==slow)
-            {
-                while(entry!=slow){
-                    entry=entry->next;
-                    slow=slow->next;    
-                }
-                if(entry==slow)
-                    return entry;
+            if(slow==fast){
+                flag=1;
+                break;
             }
+            
         }
-        return NULL;
+        if(flag==0)
+            return NULL;
+        
+        slow=head;
+        int count=-1;
+        while(slow!=fast){
+            slow=slow->next;
+            fast=fast->next;
+            count++;
+        }
+        return slow;
     }
 };
