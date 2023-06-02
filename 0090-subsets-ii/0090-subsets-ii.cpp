@@ -12,6 +12,7 @@ public:
             v.push_back(nums[i]);
             generate(nums,i+1,v);
             v.pop_back();
+            while(i+1<nums.size() && nums[i]==nums[i+1])i++;
             generate(nums,i+1,v);
         }
             
