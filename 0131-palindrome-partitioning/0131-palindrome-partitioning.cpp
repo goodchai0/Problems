@@ -1,6 +1,6 @@
 class Solution {
 public:
-    bool ispalindrome(string s,int index,int i){
+    bool isPalindrome(string s,int index,int i){
         while(index<=i){
             if(s[i]!=s[index])return false;
             index++;
@@ -8,26 +8,23 @@ public:
         }
         return true;
     }
-    void solve(string s,int index,vector<vector<string>>&ans,vector<string>&ds){
-        
-        if(index==s.size()){
-            ans.push_back(ds);
+    vector<vector<string>>ans;
+    void generate(string s,vector<string>&v,int i){
+        if(i==s.length()){
+            ans.push_back(v);
+            return;
         }
-        
-        for(int i=index;i<s.size();i++){
-            if(ispalindrome(s,index,i)){
-                ds.push_back(s.substr(index,i-index+1));
-                solve(s,i+1,ans,ds);
-                ds.pop_back();
-                
+        for(int k=i;k<s.length();k++){
+            if(isPalindrome(s,i,k)){
+                v.push_back(s.substr(i,k-i+1));
+                generate(s,v,k+1);
+                v.pop_back();
             }
         }
     }
-    
     vector<vector<string>> partition(string s) {
-        vector<vector<string>>ans;
-        vector<string>ds;
-        solve(s,0,ans,ds);
+        vector<string>v;
+        generate(s,v,0);
         return ans;
     }
 };
