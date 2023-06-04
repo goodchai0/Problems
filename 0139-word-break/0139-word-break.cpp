@@ -7,35 +7,38 @@ public:
     };
     
     void insert(string &word,Trie* root){
-        Trie *curr=root;
-        for(auto &ch:word){
+        Trie* curr=root;
+        for(auto ch:word){
             if(!curr->child[ch-'a'])curr->child[ch-'a']=new Trie();
             curr=curr->child[ch-'a'];
         }
         curr->isEnd=true;
+        
     }
     
     bool search(string &word,Trie* root){
+        
         Trie* curr=root;
-        for(auto &ch:word){
+        for(auto ch:word){
             if(!curr->child[ch-'a'])return false;
             curr=curr->child[ch-'a'];
         }
         return curr->isEnd;
+      
     }
     
-    int dp[305][305];
+    int dp[305];
     
     bool solve(string &s, Trie *root,int n,int start){
         if(start==n)return true;
-        if(dp[start][n]!=-1)return dp[start][n];
+        if(dp[start]!=-1)return dp[start];
         for(int i=start;i<n;i++){
             string str=s.substr(start,i-start+1);
             if(search(str,root)){
-                if(solve(s,root,n,i+1))return dp[start][n]=true;
+                if(solve(s,root,n,i+1))return dp[start]=true;
             }
         }
-        return dp[start][n]=false;
+        return dp[start]=false;
     }
     bool wordBreak(string s, vector<string>& wordDict) {
         Trie* root=new Trie();
