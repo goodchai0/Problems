@@ -15,14 +15,14 @@ class Solution {
         vector<int>right(n,n);
         
         for(int i=0;i<n;i++){
-            while(st.size() && arr[st.top()]>arr[i])st.pop();
+            while(st.size() && arr[st.top()]>=arr[i])st.pop();
             if(st.size()) left[i] = i - st.top();
             else left[i]=i+1;
             st.push(i);
         }
         while(st.size()) st.pop();
         for(int i=n-1;i>=0;i--){
-            while(st.size() && arr[st.top()]>=arr[i])st.pop();
+            while(st.size() && arr[st.top()]>arr[i])st.pop();
             if(st.size()) right[i] = st.top()-i;
             else right[i]=n-i;
             st.push(i);
