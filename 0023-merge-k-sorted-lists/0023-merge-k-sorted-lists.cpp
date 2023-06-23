@@ -8,40 +8,38 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+class mycmp{
+    public:
+         bool operator()(ListNode* a,ListNode* b){
+             return a->val>b->val;
+         }
+    };
 class Solution {
 public:
-    struct mycmp{
-        bool operator()(ListNode* a,ListNode* b)
-        {
-            return a->val>b->val;
-        }
-    };
-    ListNode* mergeKLists(vector<ListNode*>& lists) {
+    
+    
+    ListNode* mergeKLists(vector<ListNode*>& list) {
         priority_queue<ListNode*,vector<ListNode*>,mycmp>pq;
-        for(ListNode* x:lists)
-        {
+        for(ListNode* x:list){
             if(x)pq.push(x);
         }
-        
         ListNode* head=NULL;
-        ListNode* tail=NULL;
+        ListNode* rear=NULL;
         
-        while(!pq.empty())
-        {
+        while(!pq.empty()){
             ListNode* x=pq.top();
             pq.pop();
-            if(head==NULL)
-            {
+            if(head==NULL){
                 head=x;
-                tail=x;
+                rear=x;
             }
-            else
-            {
-                tail->next=x;
-                tail=x;
+            else{
+                rear->next=x;
+                rear=x;
             }
             if(x->next)pq.push(x->next);
         }
+        
         return head;
     }
 };
