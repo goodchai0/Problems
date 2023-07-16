@@ -9,8 +9,12 @@ public:
       for (auto i = 0; i < A.size(); ++i)
         for (auto j = 0; j < A[0].size(); ++j) 
           if (i * j == 0 || i == A.size() - 1 || j == A[i].size() - 1) dfs(A, i, j);
+        
+    int ans=0;
+      for (auto i = 0; i < A.size(); ++i)
+        for (auto j = 0; j < A[0].size(); ++j)
+            ans+=A[i][j];
 
-      return accumulate(begin(A), end(A), 0, [](int s, vector<int> &r)
-        { return s + accumulate(begin(r), end(r), 0); });
-    }
+    return ans;
+    }   
 };
